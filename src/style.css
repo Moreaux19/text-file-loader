@@ -1,0 +1,18 @@
+body {
+  background-color: grey;
+}
+
+.loader-form__drop-area {
+  width: 15rem;
+  height: 15rem;
+  border: 0.1rem solid aqua;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.loader-form__input {
+  display: none;
+}

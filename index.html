@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text file loader</title>
+    <link rel="icon" type="image/svg+xml" href="/javascript.svg" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <div class="loader-container">
+      <h1 class="loader-container__title">Загрузочное окно</h1>
+      <div>
+        <p>
+          <label for="name">Название файла</label>
+          <input class="loader-form__file-name" type="text" name="name" id="name" required />
+        </p>
+        <div class="loader-form__drop-area">
+          <img src="/drop-area.svg" />
+          <p class="loader-form__drop-area-text">Перенесите ваш файл в область ниже</p>
+        </div>
+        <div class="loader-form__status"></div>
+        <input type="file" class="loader-form__input" />
+        <button class="loader-form__button">Загрузить</button>
+      </div>
+    </div>
+  </body>
+</html>
