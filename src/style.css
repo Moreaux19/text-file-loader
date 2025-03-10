@@ -13,6 +13,39 @@ body {
   text-align: center;
 }
 
-.loader-form__input {
+.loader-form__progress-wrapper {
   display: none;
+  margin-top: 10px;
+}
+
+.loader-form__progress-bar {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.loader-form__progress-fill {
+  width: 0%;
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.2s;
+}
+
+.loader-form__progress-text {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.block-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
