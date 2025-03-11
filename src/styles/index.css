@@ -1,0 +1,29 @@
+@import url(../../vendor/inter.css);
+
+@import url(./blocks/loader-form/loader-form.css);
+
+.loader-form__progress-wrapper {
+  display: none;
+  margin-top: 10px;
+}
+
+.loader-form__progress-bar {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.loader-form__progress-fill {
+  width: 0%;
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.2s;
+}
+
+.loader-form__progress-text {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+@import url(./blocks//overlay/overlay.css);
