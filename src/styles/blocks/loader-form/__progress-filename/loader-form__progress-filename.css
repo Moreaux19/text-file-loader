@@ -1,0 +1,8 @@
+.loader-form__progress-filename {
+  margin: 0;
+  position: absolute;
+  color: #5f5cf0;
+  font-size: 10px;
+  font-weight: 500;
+  top: 0.5rem;
+}

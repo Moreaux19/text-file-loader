@@ -1,0 +1,17 @@
+.loader-form__filename-input {
+  width: 100%;
+  border-radius: 1rem;
+  padding: 0.5rem 0 0 1rem;
+  border: none;
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: #5f5cf0;
+}
+
+.loader-form__filename-input::placeholder {
+  color: #a5a5a5;
+}
+
+.loader-form__filename-input:focus {
+  outline: none;
+}

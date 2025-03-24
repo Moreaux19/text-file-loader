@@ -1,0 +1,41 @@
+.cross_input {
+  position: relative;
+  right: 1.6rem;
+  top: 1.8rem;
+  cursor: pointer;
+  border: none;
+  --accent-color: #a5a5a5;
+}
+
+.cross_input::before,
+.cross_input::after {
+  content: '';
+  position: absolute;
+  width: 1.7rem;
+  height: 0.28rem;
+  background-color: var(--accent-color);
+  border-radius: 1rem;
+  transform-origin: center;
+  transition: background-color 0.3s ease;
+}
+
+.cross_input::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cross_input::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.top-alt {
+  top: 0;
+}
+
+.color-accent {
+  --accent-color: #5f5cf0;
+}
+
+/* .cross_input.color-accent::before,
+.cross_input.color-accent::after {
+  background-color: #5f5cf0;
+} */

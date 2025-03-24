@@ -1,0 +1,27 @@
+.cross {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+}
+
+.cross::before,
+.cross::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.8rem;
+  height: 0.2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  transform-origin: center;
+  transition: background-color 0.3s ease;
+}
+
+.cross::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cross::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}

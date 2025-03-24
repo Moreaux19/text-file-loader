@@ -18,7 +18,6 @@ export class FileUploader {
     formData.append('file', this.file);
     // Добавление названия файла
     formData.append('name', this.filename);
-    console.log(this.file);
 
     // Создание объекта XMLHttpRequest
     const xhr = new XMLHttpRequest();
@@ -27,29 +26,23 @@ export class FileUploader {
     // Запуск отображения прогресса
     this.handleProgressBar.start();
 
-    // Отслеживание и отображение загрузки файла
-    // xhr.upload.addEventListener('progress', event => {
-    //   const percent = Math.round((event.loaded / event.total) * 100);
-    //   this.handleProgressBar.updateProgress(percent);
-    // });
-
-    // Обработка завершение загрузки
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        console.log('File uploaded successfully');
-      } else {
-        console.error('Error uploading file:', xhr.statusText);
-      }
-      this.handleProgressBar.finish();
-    };
-
     // Обработка ошибки при загрузке
     xhr.onerror = () => {
-      console.error('Error connecting to the server');
+      alert('Error connecting to the server');
       this.handleProgressBar.error();
     };
 
     // Отправка файла на сервер
     xhr.send(formData);
+
+    // Обработка завершение загрузки
+    xhr.onload = () => {
+      this.handleProgressBar.finish();
+      if (xhr.status === 200) {
+        alert('File uploaded successfully');
+      } else {
+        alert('Error uploading file:', xhr.statusText);
+      }
+    };
   }
 }

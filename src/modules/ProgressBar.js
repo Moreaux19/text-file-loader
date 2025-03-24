@@ -1,11 +1,17 @@
 // Класс шкалы загрузки
 export class ProgressBar {
-  constructor({ progressWrapper, progressFill, progressText, overlay }) {
+  constructor({
+    progressWrapper,
+    progressFill,
+    progressText: progressPercent,
+    overlay,
+    resetFunction
+  }) {
     this.progressWrapper = progressWrapper;
     this.progressFill = progressFill;
-    this.progressText = progressText;
+    this.progressPercent = progressPercent;
     this.overlay = overlay;
-
+    this.resetFunction = resetFunction;
     // Значения для псевдозагрузки
     this.interval = null;
     this.currentPercent = 0;
@@ -13,9 +19,9 @@ export class ProgressBar {
 
   // Начало загрузки
   start() {
-    this.progressWrapper.style.display = 'block';
+    this.progressWrapper.style.display = 'flex';
     this.progressFill.style.width = '0%';
-    this.progressText.textContent = '0%';
+    this.progressPercent.textContent = '0%';
     this.overlay.style.display = 'flex';
 
     const duration = 5000; // Общее время псевдозагрузки
@@ -37,7 +43,7 @@ export class ProgressBar {
   updateProgress(percent) {
     const roundedPrecent = Math.round(percent);
     this.progressFill.style.width = `${roundedPrecent}%`;
-    this.progressText.textContent = `${roundedPrecent}%`;
+    this.progressPercent.textContent = `${roundedPrecent}%`;
   }
   // Завершение загрузки
   finish() {
@@ -50,16 +56,17 @@ export class ProgressBar {
     setTimeout(() => {
       this.progressWrapper.style.display = 'none';
       this.progressFill.style.width = '0%';
-      this.progressText.textContent = '0%';
+      this.progressPercent.textContent = '0%';
+      this.resetFunction(); // Вызов функции сброса формы
     }, 1000);
   }
   // Обработка ошибки
   error() {
     clearInterval(this.interval);
-    this.progressText.textContent = 'Ошибка';
+    this.progressPercent.textContent = 'Ошибка';
     this.progressFill.style.background = 'red';
     this.overlay.style.display = 'none';
     this.progressFill.style.width = '0%';
-    this.progressText.textContent = '0%';
+    this.progressPercent.textContent = '0%';
   }
 }
