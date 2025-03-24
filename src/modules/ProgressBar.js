@@ -46,14 +46,21 @@ export class ProgressBar {
     this.progressPercent.textContent = `${roundedPrecent}%`;
   }
   // Завершение загрузки
-  finish() {
+  finish(result) {
     // Остановка псевдоанимации
     clearInterval(this.interval);
     // Установка финального процента
     this.updateProgress(100);
     this.overlay.style.display = 'none';
+
     // Скрытие шкалы через секунду после завершения загрузки
     setTimeout(() => {
+      // Вывод на экран сообщения с результатом загрузки
+      if (result.status === 200) {
+        alert('Файл успешно загружен.');
+      } else {
+        alert(`Ошибка загрузки: ${result.status} - ${result.statusText}`);
+      }
       this.progressWrapper.style.display = 'none';
       this.progressFill.style.width = '0%';
       this.progressPercent.textContent = '0%';

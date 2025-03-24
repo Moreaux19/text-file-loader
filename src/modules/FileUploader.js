@@ -28,7 +28,8 @@ export class FileUploader {
 
     // Обработка ошибки при загрузке
     xhr.onerror = () => {
-      alert('Error connecting to the server');
+      alert('Ошибка сети при загрузке файла.');
+
       this.handleProgressBar.error();
     };
 
@@ -37,12 +38,7 @@ export class FileUploader {
 
     // Обработка завершение загрузки
     xhr.onload = () => {
-      this.handleProgressBar.finish();
-      if (xhr.status === 200) {
-        alert('File uploaded successfully');
-      } else {
-        alert('Error uploading file:', xhr.statusText);
-      }
+      this.handleProgressBar.finish(xhr);
     };
   }
 }
