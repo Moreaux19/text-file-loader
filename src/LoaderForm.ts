@@ -1,32 +1,53 @@
 import { FileValidator } from './modules/FileValidator';
 import { FileUploader } from './modules/FileUploader';
 
+// Интерфейс элементов прогресс-бара
+interface ProgressElements {
+  progressWrapper: HTMLDivElement; // Контейнер, оборачивающий прогресс-бар
+  progressFill: HTMLDivElement; // Элемент, отображающий заполнение прогресс-бара
+  progressText: HTMLDivElement; // Текстовый элемент, показывающий процент загрузки
+  overlay: HTMLDivElement; // Затемняющий фон, показывающий, что процесс идёт
+  resetFunction: () => void; // Функция, не принимающая аргументов и ничего не возвращающая
+}
+
 // Веб-компонент загрузочной формы
 class LoaderForm extends HTMLElement {
+  // Инициализация состояний
+  private isFileSelected: boolean = false; // Файл выбран
+  private isInputFilled: boolean = false; // Поле названия заполнено
+  private selectedFile: File | null = null; // Хранение выбранного файла
+  private FILE_MAX_SIZE: number = 1024; // Максимальный размер файла в байтах
+  private url: string = 'https://file-upload-server-mc26.onrender.com/api/v1/upload'; // URL сервера для загрузки
+
+  // Элементы формы (определены позже в initElements)
+  private dropArea!: HTMLDivElement;
+  private fileInput!: HTMLInputElement;
+  private filenameInput!: HTMLInputElement;
+  private clearFilenameButton!: HTMLDivElement;
+  private submitButton!: HTMLButtonElement;
+  private progressFill!: HTMLDivElement;
+  private progressPercent!: HTMLDivElement;
+  private progressFilename!: HTMLDivElement;
+  private progressWrapper!: HTMLDivElement;
+  private clearFileButton!: HTMLDivElement;
+  private overlay!: HTMLDivElement;
+
   constructor() {
     super();
     // Создание Shadow DOM
     this.attachShadow({ mode: 'open' });
-    // Инициализация состояний
-    this.isFileSelected = false; // Файл выбран
-    this.isInputFilled = false; // Поле названия заполнено
-    this.selectedFile = null; // Хранение выбранного файла
-    // Максимальный размер файла в байтах
-    this.FILE_MAX_SIZE = 1024;
-    // URL сервера для загрузки
-    this.url = 'https://file-upload-server-mc26.onrender.com/api/v1/upload';
   }
 
   // Хук жизненного цикла компонента
-  connectedCallback() {
+  connectedCallback(): void {
     this.render(); // Отрисовка шаблона
     this.initElements(); // Инициализация DOM-элементов
     this.addEventListeners(); // Назначение обработчиков событий
   }
 
   // Отрисовка HTML-шаблона компонента
-  render() {
-    this.shadowRoot.innerHTML = `
+  render(): void {
+    this.shadowRoot!.innerHTML = `
           <link rel="stylesheet" href='./src/styles/index.css'/>
   
           <div class="loader-form-wrapper">
@@ -70,37 +91,37 @@ class LoaderForm extends HTMLElement {
   }
 
   // Инициализация DOM-элементов внутри Shadow DOM
-  initElements() {
-    this.dropArea = this.shadowRoot.querySelector('.loader-form__drop-area');
-    this.fileInput = this.shadowRoot.querySelector('.loader-form__input');
-    this.filenameInput = this.shadowRoot.querySelector('.loader-form__filename-input');
-    this.clearFilenameButton = this.shadowRoot.querySelector(
-      '.loader-form__filename-clear-button '
-    );
-    this.submitButton = this.shadowRoot.querySelector('.loader-form__submit-button');
-    this.progressFill = this.shadowRoot.querySelector('.loader-form__progress-fill');
-    this.progressPercent = this.shadowRoot.querySelector('.loader-form__progress-percent');
-    this.progressFilename = this.shadowRoot.querySelector('.loader-form__progress-filename');
-    this.progressWrapper = this.shadowRoot.querySelector('.loader-form__progress-wrapper');
-    this.clearFileButton = this.shadowRoot.querySelector('.loader-form__clear-file-button');
-    this.overlay = this.shadowRoot.querySelector('.overlay');
+  initElements(): void {
+    this.dropArea = this.shadowRoot!.querySelector('.loader-form__drop-area')!;
+    this.fileInput = this.shadowRoot!.querySelector('.loader-form__input')!;
+    this.filenameInput = this.shadowRoot!.querySelector('.loader-form__filename-input')!;
+    this.clearFilenameButton = this.shadowRoot!.querySelector(
+      '.loader-form__filename-clear-button'
+    )!;
+    this.submitButton = this.shadowRoot!.querySelector('.loader-form__submit-button')!;
+    this.progressFill = this.shadowRoot!.querySelector('.loader-form__progress-fill')!;
+    this.progressPercent = this.shadowRoot!.querySelector('.loader-form__progress-percent')!;
+    this.progressFilename = this.shadowRoot!.querySelector('.loader-form__progress-filename')!;
+    this.progressWrapper = this.shadowRoot!.querySelector('.loader-form__progress-wrapper')!;
+    this.clearFileButton = this.shadowRoot!.querySelector('.loader-form__clear-file-button')!;
+    this.overlay = this.shadowRoot!.querySelector('.overlay')!;
   }
 
   // Назначение всех обработчиков событий
-  addEventListeners() {
+  addEventListeners(): void {
     // Разрешение события dragover
-    this.dropArea.addEventListener('dragover', event => {
+    this.dropArea.addEventListener('dragover', (event: DragEvent) => {
       event.preventDefault();
     });
 
     // Обработка события "перетаскивания и отпускания файла"
-    this.dropArea.addEventListener('drop', event => {
+    this.dropArea.addEventListener('drop', (event: DragEvent) => {
       event.preventDefault();
       this.handleFilePick(event);
     });
 
     // Обработка выбора файла через иконку
-    this.fileInput.addEventListener('change', event => {
+    this.fileInput.addEventListener('change', (event: Event) => {
       this.handleFilePick(event);
     });
 
@@ -131,7 +152,7 @@ class LoaderForm extends HTMLElement {
     // Обработка нажатия кнопки загрущки файла
     this.submitButton.addEventListener('click', () => {
       // Формирование объекта с элементами прогресс-бара
-      const progressElements = {
+      const progressElements: ProgressElements = {
         progressWrapper: this.progressWrapper,
         progressFill: this.progressFill,
         progressText: this.progressPercent,
@@ -139,23 +160,31 @@ class LoaderForm extends HTMLElement {
         resetFunction: this.resetForm.bind(this)
       };
 
-      // Создание экземпляра загрузчика и передача параметров
-      const uploader = new FileUploader(
-        this.selectedFile,
-        this.filenameInput,
-        this.url,
-        progressElements
-      );
+      if (this.selectedFile) {
+        // Создание экземпляра загрузчика и передача параметров
+        const uploader = new FileUploader(
+          this.selectedFile,
+          this.filenameInput.value,
+          this.url,
+          progressElements
+        );
 
-      // Запуск загрузки
-      uploader.upload();
+        // Запуск загрузки
+        uploader.upload();
+      }
     });
   }
 
   // Обработка выбора файла
-  handleFilePick(event) {
+  handleFilePick(event: Event): void {
     // Проверка метода добавления файла и назначение файла в переменную
-    const file = event.target.files ? event.target.files[0] : event.dataTransfer.files[0];
+    // const file = event.target.files ? event.target.files[0] : event.dataTransfer.files[0];
+    const file: File | null =
+      event instanceof DragEvent && event.dataTransfer?.files?.[0]
+        ? event.dataTransfer.files[0]
+        : event.target instanceof HTMLInputElement && event.target.files
+        ? event.target.files[0]
+        : null;
 
     if (!file) return;
 
@@ -172,9 +201,9 @@ class LoaderForm extends HTMLElement {
   }
 
   // Активация кнопки загрузки файла
-  setButtonActive() {
+  setButtonActive(): void {
     // Проверка на наличие файла и его названия
-    const isActive = this.isInputFilled && this.isFileSelected;
+    const isActive: boolean = this.isInputFilled && this.isFileSelected;
     this.submitButton.disabled = !isActive;
     // Активируем кнопку при соблюдении условий
     this.toggleButtonStyle(isActive);
@@ -183,7 +212,7 @@ class LoaderForm extends HTMLElement {
   }
 
   // Активация кнопки при соблюдении условий
-  toggleButtonStyle(active) {
+  toggleButtonStyle(active: boolean): void {
     if (active) {
       this.submitButton.classList.remove('loader-form__submit-button--inactive');
       this.submitButton.classList.add('loader-form__submit-button--active');
@@ -194,7 +223,7 @@ class LoaderForm extends HTMLElement {
   }
 
   // Отображение иконки файла при соблюдении условий
-  showFileIcon(show) {
+  showFileIcon(show: boolean): void {
     if (show) {
       // Отображение прогресс-бара
       this.progressWrapper.style.display = 'flex';
@@ -208,7 +237,7 @@ class LoaderForm extends HTMLElement {
   }
 
   // Сброс состояний кнопки и инпута
-  resetForm() {
+  resetForm(): void {
     this.filenameInput.value = '';
     this.isInputFilled = false;
     this.isFileSelected = false;

@@ -1,11 +1,24 @@
 // Класс шкалы загрузки
 export class ProgressBar {
+  private progressWrapper: HTMLDivElement; // Обертка прогресс-бара
+  private progressFill: HTMLDivElement; // Заполняющая часть шкалы
+  private progressPercent: HTMLDivElement; // Текстовое отображение процента
+  private overlay: HTMLDivElement; // Затемняющий фон во время загрузки
+  private resetFunction: () => void; // Функция сброса формы
+  private interval: NodeJS.Timeout | null; // Интервал для псевдозагрузки
+  private currentPercent: number; // Текущий процент прогресса
   constructor({
     progressWrapper,
     progressFill,
     progressText: progressPercent,
     overlay,
     resetFunction
+  }: {
+    progressWrapper: HTMLDivElement;
+    progressFill: HTMLDivElement;
+    progressText: HTMLDivElement;
+    overlay: HTMLDivElement;
+    resetFunction: () => void;
   }) {
     this.progressWrapper = progressWrapper;
     this.progressFill = progressFill;
@@ -18,7 +31,7 @@ export class ProgressBar {
   }
 
   // Начало загрузки
-  start() {
+  start(): void {
     this.progressWrapper.style.display = 'flex';
     this.progressFill.style.width = '0%';
     this.progressPercent.textContent = '0%';
@@ -40,15 +53,15 @@ export class ProgressBar {
   }
 
   // Обновление процента загрузки
-  updateProgress(percent) {
+  updateProgress(percent: number): void {
     const roundedPrecent = Math.round(percent);
     this.progressFill.style.width = `${roundedPrecent}%`;
     this.progressPercent.textContent = `${roundedPrecent}%`;
   }
   // Завершение загрузки
-  finish(result) {
+  finish(result: { status: number; statusText: string }): void {
     // Остановка псевдоанимации
-    clearInterval(this.interval);
+    clearInterval(this.interval as NodeJS.Timeout);
     // Установка финального процента
     this.updateProgress(100);
     this.overlay.style.display = 'none';
@@ -69,7 +82,7 @@ export class ProgressBar {
   }
   // Обработка ошибки
   error() {
-    clearInterval(this.interval);
+    clearInterval(this.interval as NodeJS.Timeout);
     this.progressPercent.textContent = 'Ошибка';
     this.progressFill.style.background = 'red';
     this.overlay.style.display = 'none';

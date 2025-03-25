@@ -1,17 +1,29 @@
-import { ProgressBar } from './ProgressBar.js';
+import { ProgressBar } from './ProgressBar';
+
+// Описание элементов, передаваемых в ProgressBar
+interface ProgressElements {
+  progressWrapper: HTMLDivElement;
+  progressFill: HTMLDivElement;
+  progressText: HTMLDivElement;
+  overlay: HTMLDivElement;
+  resetFunction: () => void;
+}
 
 // Класс отправки файла на сервер
 export class FileUploader {
-  constructor(file, filename, url, progressElements) {
+  private file: File;
+  private filename: string;
+  private url: string;
+  private handleProgressBar: ProgressBar;
+
+  constructor(file: File, filename: string, url: string, progressElements: ProgressElements) {
     this.file = file;
     this.filename = filename;
     this.url = url;
-    // Экземпляр класса с анимацией загрузки
     this.handleProgressBar = new ProgressBar(progressElements);
   }
-
   // Метод для отправки файла на сервер
-  upload() {
+  upload(): void {
     // Создание экземпляра FormData
     const formData = new FormData();
     // Добавляение файла
