@@ -1,41 +1,41 @@
-@import url(blocks/loader-form-wrapper/loader-form-wrapper.css);
+@import url(./blocks/loader-form-wrapper/loader-form-wrapper.css);
 
-@import url(blocks/loader-form/loader-form.css);
+@import url(./blocks/loader-form/loader-form.css);
 
-@import url(blocks/loader-form/__close-button/loader-form__close-button.css);
+@import url(./blocks/loader-form/__close-button/loader-form__close-button.css);
 
-@import url(blocks/cross/cross.css);
+@import url(./blocks/cross/cross.css);
 
-@import url(blocks/cross/_filename-input/cross_input.css);
+@import url(./blocks/cross/_filename-input/cross_input.css);
 
-@import url(blocks/loader-form/__title/loader-form__title.css);
+@import url(./blocks/loader-form/__title/loader-form__title.css);
 
-@import url(blocks/loader-form/__subtitle/loader-form__subtitle.css);
+@import url(./blocks/loader-form/__subtitle/loader-form__subtitle.css);
 
-@import url(blocks/loader-form/__filename-wrapper/loader-form__filename-wrapper.css);
+@import url(./blocks/loader-form/__filename-wrapper/loader-form__filename-wrapper.css);
 
-@import url(blocks/loader-form/__filename-input/loader-form__filename-input.css);
+@import url(./blocks/loader-form/__filename-input/loader-form__filename-input.css);
 
-@import url(blocks/loader-form/__clear-filename-button/loader-form__clear-filename-button.css);
+@import url(./blocks/loader-form/__clear-filename-button/loader-form__clear-filename-button.css);
 
-@import url(blocks/loader-form/__drop-area/loader-form__drop-area.css);
+@import url(./blocks/loader-form/__drop-area/loader-form__drop-area.css);
 
-@import url(blocks/loader-form/__drop-area-text/loader-form__drop-area-text.css);
+@import url(./blocks/loader-form/__drop-area-text/loader-form__drop-area-text.css);
 
-@import url(blocks/loader-form/__submit-button/loader-form__submit-button.css);
+@import url(./blocks/loader-form/__submit-button/loader-form__submit-button.css);
 
-@import url(blocks/loader-form/__progress-wrapper/loader-form__progress-wrapper.css);
+@import url(./blocks/loader-form/__progress-wrapper/loader-form__progress-wrapper.css);
 
-@import url(blocks/loader-form/__progress-icon/loader-form__progress-icon.css);
+@import url(./blocks/loader-form/__progress-icon/loader-form__progress-icon.css);
 
-@import url(blocks/loader-form/__progress-bar-section/loader-form__progress-bar-section.css);
+@import url(./blocks/loader-form/__progress-bar-section/loader-form__progress-bar-section.css);
 
-@import url(blocks/loader-form/__progress-filename/loader-form__progress-filename.css);
+@import url(./blocks/loader-form/__progress-filename/loader-form__progress-filename.css);
 
-@import url(blocks/loader-form/__progress-bar/loader-form__progress-bar.css);
+@import url(./blocks/loader-form/__progress-bar/loader-form__progress-bar.css);
 
-@import url(blocks/loader-form/__progress-fill/loader-form__progress-fill.css);
+@import url(./blocks/loader-form/__progress-fill/loader-form__progress-fill.css);
 
-@import url(blocks/loader-form/__progress-percent/loader-form__progress-percent.css);
+@import url(./blocks/loader-form/__progress-percent/loader-form__progress-percent.css);
 
-@import url(blocks/overlay/overlay.css);
+@import url(./blocks/overlay/overlay.css);
