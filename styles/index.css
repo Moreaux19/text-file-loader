@@ -2,8 +2,7 @@
 
 @import url(./blocks/loader-form/loader-form.css);
 
-/* @import url(./blocks/loader-form/__close-button/loader-form__close-button.css); */
-@import url(/text-file-loader/styles/blocks/loader-form/__close-button/loader-form__close-button.css);
+@import url(./blocks/loader-form/__close-button/loader-form__close-button.css);
 
 @import url(./blocks/cross/cross.css);
 
@@ -40,3 +39,4 @@
 @import url(./blocks/loader-form/__progress-percent/loader-form__progress-percent.css);
 
 @import url(./blocks/overlay/overlay.css);
+@import url(./blocks/loader-form__title.css);
