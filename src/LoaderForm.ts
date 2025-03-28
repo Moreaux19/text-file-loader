@@ -1,6 +1,6 @@
 import { FileValidator } from './modules/FileValidator';
 import { FileUploader } from './modules/FileUploader';
-
+import css from './styles/index.css';
 // Интерфейс элементов прогресс-бара
 interface ProgressElements {
   progressWrapper: HTMLDivElement; // Контейнер, оборачивающий прогресс-бар
@@ -16,8 +16,8 @@ class LoaderForm extends HTMLElement {
   private isFileSelected: boolean = false; // Файл выбран
   private isInputFilled: boolean = false; // Поле названия заполнено
   private selectedFile: File | null = null; // Хранение выбранного файла
-  private FILE_MAX_SIZE: number = 1024; // Максимальный размер файла в байтах
-  private url: string = 'https://file-upload-server-mc26.onrender.com/api/v1/upload'; // URL сервера для загрузки
+  private readonly FILE_MAX_SIZE: number = 1024; // Максимальный размер файла в байтах
+  private readonly url: string = 'https://file-upload-server-mc26.onrender.com/api/v1/upload'; // URL сервера для загрузки
 
   // Элементы формы (определены позже в initElements)
   private dropArea!: HTMLDivElement;
@@ -35,7 +35,21 @@ class LoaderForm extends HTMLElement {
   constructor() {
     super();
     // Создание Shadow DOM
-    this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({ mode: 'open' });
+
+    // Добавление стилей
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = new URL('./styles/index.css', import.meta.url).pathname;
+    shadow.appendChild(link);
+    // const style = document.createElement('style');
+    // style.textContent = css;
+    // shadow.appendChild(style);
+
+    // Создание контейнера для контента
+    const container = document.createElement('div');
+    container.classList.add('loader-form-container');
+    shadow.appendChild(container);
   }
 
   // Хук жизненного цикла компонента
@@ -47,9 +61,10 @@ class LoaderForm extends HTMLElement {
 
   // Отрисовка HTML-шаблона компонента
   render(): void {
-    this.shadowRoot!.innerHTML = `
-          <link rel="stylesheet" href='./src/styles/index.css'/>
-  
+    const container = this.shadowRoot!.querySelector('.loader-form-container');
+    if (!container) return;
+    container.innerHTML = `
+
           <div class="loader-form-wrapper">
             <div class="loader-form">
             <button class="loader-form__close-button">
@@ -178,13 +193,13 @@ class LoaderForm extends HTMLElement {
   // Обработка выбора файла
   handleFilePick(event: Event): void {
     // Проверка метода добавления файла и назначение файла в переменную
-    // const file = event.target.files ? event.target.files[0] : event.dataTransfer.files[0];
-    const file: File | null =
-      event instanceof DragEvent && event.dataTransfer?.files?.[0]
-        ? event.dataTransfer.files[0]
-        : event.target instanceof HTMLInputElement && event.target.files
-        ? event.target.files[0]
-        : null;
+    let file: File | null = null;
+
+    if (event instanceof DragEvent && event.dataTransfer?.files?.length) {
+      file = event.dataTransfer.files[0];
+    } else if (event.target instanceof HTMLInputElement && event.target.files?.length) {
+      file = event.target.files[0];
+    }
 
     if (!file) return;
 

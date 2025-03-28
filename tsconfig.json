@@ -2,13 +2,14 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Node",
     "strict": true,
+    "moduleResolution": "Node",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["DOM", "ESNext"]
   },
-  "include": ["src"],
+  "include": ["src", "src/LoaderForm.ts"],
   "exclude": ["node_modules"]
 }
