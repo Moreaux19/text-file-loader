@@ -1,6 +1,6 @@
 import { FileValidator } from './modules/FileValidator';
 import { FileUploader } from './modules/FileUploader';
-import css from './styles/index.css';
+
 // Интерфейс элементов прогресс-бара
 interface ProgressElements {
   progressWrapper: HTMLDivElement; // Контейнер, оборачивающий прогресс-бар
@@ -40,11 +40,8 @@ class LoaderForm extends HTMLElement {
     // Добавление стилей
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = new URL('./styles/index.css', import.meta.url).pathname;
+    link.href = './styles/index.css';
     shadow.appendChild(link);
-    // const style = document.createElement('style');
-    // style.textContent = css;
-    // shadow.appendChild(style);
 
     // Создание контейнера для контента
     const container = document.createElement('div');
