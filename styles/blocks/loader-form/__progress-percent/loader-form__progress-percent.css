@@ -1,0 +1,8 @@
+.loader-form__progress-percent {
+  font-size: 10px;
+  font-weight: 500;
+  color: #5f5cf0;
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+}

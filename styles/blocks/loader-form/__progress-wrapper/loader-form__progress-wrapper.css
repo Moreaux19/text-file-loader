@@ -1,0 +1,11 @@
+.loader-form__progress-wrapper {
+  position: relative;
+  width: 100%;
+  height: 3.5rem;
+  display: none;
+  align-items: center;
+  justify-content: start;
+  margin: 0;
+  border-radius: 1rem;
+  border: 0.1rem solid #a5a5a5;
+}
