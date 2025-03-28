@@ -8,7 +8,7 @@
 
 @import url(./blocks/cross/_filename-input/cross_input.css);
 
-@import url(./blocks/loader-form/__title/loader-form__title.css);
+/* @import url(./blocks/loader-form/__title/loader-form__title.css); */
 
 @import url(./blocks/loader-form/__subtitle/loader-form__subtitle.css);
 
@@ -39,4 +39,5 @@
 @import url(./blocks/loader-form/__progress-percent/loader-form__progress-percent.css);
 
 @import url(./blocks/overlay/overlay.css);
+
 @import url(./blocks/loader-form__title.css);
