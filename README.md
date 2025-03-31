@@ -18,6 +18,6 @@
 - Анимация прогресс-бара
 - Отправка файла на сервер через FormDat и XMLHttpRequest с отображением результата загрузки
 
-# Страница проекта на Github Pages: https://moreaux19.github.io/text-file-loader
+### Страница проекта на Github Pages: https://moreaux19.github.io/text-file-loader
 
-# Проект выполнил Евгений Басаргин.
+### Проект выполнил Евгений Басаргин.
