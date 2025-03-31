@@ -17,6 +17,7 @@ class LoaderForm extends HTMLElement {
   private isInputFilled: boolean = false; // Поле названия заполнено
   private selectedFile: File | null = null; // Хранение выбранного файла
   private readonly FILE_MAX_SIZE: number = 1024; // Максимальный размер файла в байтах
+  private readonly FILE_ALLOWED_TYPES: string[] = ['text/plain', 'application/json', 'text/csv']; // Допустимые типы файла
   private readonly url: string = 'https://file-upload-server-mc26.onrender.com/api/v1/upload'; // URL сервера для загрузки
 
   // Элементы формы (определены позже в initElements)
@@ -201,10 +202,7 @@ class LoaderForm extends HTMLElement {
     if (!file) return;
 
     // Проверка размера файла
-    if (!FileValidator.validateSize(file, this.FILE_MAX_SIZE)) {
-      alert('Размер файла не должен превышать 1024 байта');
-      return;
-    }
+    FileValidator.validate(file, this.FILE_MAX_SIZE, this.FILE_ALLOWED_TYPES);
 
     // Сохранение выбранного файла и обновление состояния
     this.selectedFile = file;
