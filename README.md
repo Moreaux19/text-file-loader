@@ -1,4 +1,4 @@
-# Тестовый проект: Text file loader
+# Text file loader
 
 ## Описание
 
